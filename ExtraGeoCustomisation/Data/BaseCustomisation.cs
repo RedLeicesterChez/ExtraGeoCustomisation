@@ -6,8 +6,12 @@ namespace ExtraGeoCustomization.Data
     [System.Serializable]
     public class BaseCustomisation
     {
-        [JsonPropertyOrder(0)]
+        [JsonPropertyOrder(-2)]
         public eCustomisationType Type { get; set; }
+        [JsonPropertyOrder(-1)]
+        public bool StartEnabled { get; set; }
+        [JsonPropertyOrder(0)]
+        public string WorldObjectName { get; set; }
 
         [JsonPropertyOrder(1)]
         public int EventID { get; set; }

@@ -18,6 +18,10 @@
         CustomGenerator = 12, //Custom generators that you can insert or take cells out of
         TileEnemy = 13, //enemies built into the tile could be used to make a bossfight
 
+        CustomChainedPuzzle = 15, //ChainedPuzzle independant from secdoors or terminals
+        TerminalOverride = 16, //Override terminal data (like reactor commands and color)
+
+
         MovingPlatform = 40, //Moving platform with navmesh support (fucking kill me)
 
     }

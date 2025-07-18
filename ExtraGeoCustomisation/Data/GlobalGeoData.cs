@@ -14,6 +14,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.TextObject,
                 EventID = 1,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 Text = "Warning",
@@ -27,6 +28,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.DamageArea,
                 EventID = 2,
+                StartEnabled = false,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 DamageType = eDamageType.Both,
@@ -42,6 +44,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.ShuttleBox,
                 EventID = 3,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 Position = new Vector3(7, 0, 3),
@@ -88,6 +91,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.PhysicsObject,
                 EventID = 7,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 Mass = 1.0f,
@@ -110,6 +114,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.Interactableobject,
                 EventID = 8,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 Position = new Vector3(1, 1, 1),
@@ -134,6 +139,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.CustomFogArea,
                 EventID = 10,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 CoverageType = eAreaType.Sphere,
@@ -146,6 +152,7 @@ namespace ExtraGeoCustomization.Data
             {
                 Type = eCustomisationType.CustomTriggerBoxe,
                 EventID = 11,
+                StartEnabled = true,
                 EventsOnActivate = [],
                 EventsOnDeactivate = [],
                 CoverageType = eAreaType.Box,

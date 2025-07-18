@@ -16,5 +16,8 @@ namespace ExtraGeoCustomization.Data
 
         [JsonPropertyOrder(7)]
         public uint ItemID { get; set; }
+
+        [JsonIgnore]
+        public bool StartEnabled;
     }
 }

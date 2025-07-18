@@ -26,5 +26,8 @@ namespace ExtraGeoCustomization.Data
 
         [JsonPropertyOrder(10)]
         public EventData[] EventsOnRemove { get; set; }
+
+        [JsonIgnore]
+        public bool StartEnabled;
     }
 }

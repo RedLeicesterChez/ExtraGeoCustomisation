@@ -13,5 +13,8 @@ namespace ExtraGeoCustomization.Data
 
         [JsonPropertyOrder(6)]
         public bool SeparateTerminalPings { get; set; }
+
+        [JsonIgnore]
+        public bool StartEnabled;
     }
 }

@@ -14,5 +14,8 @@ namespace ExtraGeoCustomization.Data
 
         [JsonPropertyOrder(6)]
         public EventData[] EventsOnEnemySpawn { get; set; }
+
+        [JsonIgnore]
+        public bool StartEnabled;
     }
 }
