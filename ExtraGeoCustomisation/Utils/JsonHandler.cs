@@ -5,6 +5,8 @@ using ExtraGeoCustomisation.Utils;
 using MTFO.API;
 using ExtraGeoCustomization.Data;
 using System.Collections.Generic;
+using HarmonyLib;
+using System;
 
 namespace ExtraGeoCustomization.Utils
 {
@@ -33,21 +35,19 @@ namespace ExtraGeoCustomization.Utils
             LoadJson();
         }
 
-        public Dictionary<int, BaseCustomisation[]> Customisations;
-
-        private static string[] globalGeoDataPaths;
-        private static string[] perLevelDataPaths;
+        //public Dictionary<int, BaseCustomisation[]> Customisations; For individual customisations (put elsewhere)
+        public static List<GlobalGeoData> GlobalGeoDatas = new();
+        public static List<LevelSpecificGeoData> LevelSpecificGeoDatas = new();
 
         private static void LoadJson(bool isHotReload = false, bool generateTemplate = false)
         {
             string globalDataPath = Path.Combine(EGC_CustomPath + "/GlobalData");
             string levelSpecificDataPath = Path.Combine(EGC_CustomPath + "/LevelSpecificData");
 
-
-
+            string[] globalGeoDataPaths = [];
+            string[] perLevelDataPaths = [];
 
             LogEGC.Info("Loading Json Data");
-
 
             if (!Directory.Exists(globalDataPath))
             {
@@ -58,12 +58,43 @@ namespace ExtraGeoCustomization.Utils
             {
                 foreach (string path in globalGeoDataPaths)
                 {
-                    GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(path, new GlobalGeoData());
+                    LogEGC.Info("Loading file with path: " + path);
+                    GlobalGeoData data = Deserialize(path, new GlobalGeoData());
+                    GlobalGeoDatas.Add(data);
                 }
             }
             else
             {
+                LogEGC.Info("Generating template file as no files exist");
                 GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(globalDataPath + "/Template.json", new GlobalGeoData());
+            }
+
+            if (!Directory.Exists(levelSpecificDataPath))
+            {
+                Directory.CreateDirectory(levelSpecificDataPath);
+            }
+            perLevelDataPaths = Directory.GetFiles(levelSpecificDataPath);
+            if (perLevelDataPaths.Length > 0)
+            {
+                foreach (string path in perLevelDataPaths)
+                {
+                    LogEGC.Info("Loading file with path: " + path);
+                    LevelSpecificGeoData data = Deserialize(path, new LevelSpecificGeoData());
+                    LevelSpecificGeoDatas.Add(data);
+                }
+            }
+            else
+            {
+                LogEGC.Info("Generating template file as no files exist");
+                LevelSpecificGeoData data = DeserializeJsonAndCreateIfNotReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
+            }
+
+            if (generateTemplate)
+            {
+                LogEGC.Info("Generating new template files");
+                DeserializeAndOverwriteIfReal(globalDataPath + "/Template.json", new GlobalGeoData());
+                DeserializeAndOverwriteIfReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
+
             }
 
 
@@ -118,6 +149,18 @@ namespace ExtraGeoCustomization.Utils
                 LogEGC.Error("Tried to load a JSON file that doesn't exist");
                 return default;
             }
+            string codedJson = File.ReadAllText(jsonPath);
+            return JsonSerializer.Deserialize<T>(codedJson, _setting);
+        }
+
+        private static T DeserializeAndOverwriteIfReal<T>(string jsonPath, T data)
+        {
+            if (File.Exists(jsonPath))
+            {
+                File.Delete(jsonPath);
+            }
+            var jsonData = JsonSerializer.Serialize(data, _setting);
+            File.WriteAllText(jsonPath, jsonData);
             string codedJson = File.ReadAllText(jsonPath);
             return JsonSerializer.Deserialize<T>(codedJson, _setting);
         }

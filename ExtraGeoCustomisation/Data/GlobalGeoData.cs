@@ -1,6 +1,4 @@
-﻿using ExtraGeoCustomization.Events;
-
-namespace ExtraGeoCustomization.Data
+﻿namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
     public class GlobalGeoData
