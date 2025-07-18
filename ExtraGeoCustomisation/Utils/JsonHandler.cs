@@ -3,8 +3,8 @@ using System.Text.Json;
 using System.IO;
 using ExtraGeoCustomisation.Utils;
 using MTFO.API;
-using UnityEngine;
-using System.Linq;
+using ExtraGeoCustomization.Data;
+using System.Collections.Generic;
 
 namespace ExtraGeoCustomization.Utils
 {
@@ -19,37 +19,71 @@ namespace ExtraGeoCustomization.Utils
                 return;
             }
 
-            EGC_CustomPath = Path.Combine(MTFOPathAPI.CustomPath, "ExtraRundownCustomisation");
-
+            EGC_CustomPath = Path.Combine(MTFOPathAPI.CustomPath, "ExtraGeoCustomisations");
+            
             if (!Directory.Exists(EGC_CustomPath))
             {
                 Directory.CreateDirectory(EGC_CustomPath);
             }
 
-            LogEGC.Info("ERC Custom path loaded");
+            LogEGC.Info("EGC Custom path loaded");
 
             MTFOHotReloadAPI.OnHotReload += OnHotReload;
 
             LoadJson();
         }
 
+        public Dictionary<int, BaseCustomisation[]> Customisations;
+
         private static string[] globalGeoDataPaths;
         private static string[] perLevelDataPaths;
 
         private static void LoadJson(bool isHotReload = false, bool generateTemplate = false)
         {
+            string globalDataPath = Path.Combine(EGC_CustomPath + "/GlobalData");
+            string levelSpecificDataPath = Path.Combine(EGC_CustomPath + "/LevelSpecificData");
+
+
+
+
             LogEGC.Info("Loading Json Data");
-            if (!Directory.Exists(EGC_CustomPath + "/GlobalGeoData"))
+
+
+            if (!Directory.Exists(globalDataPath))
             {
-                Directory.CreateDirectory(EGC_CustomPath + "/GlobalGeoData");
+                Directory.CreateDirectory(globalDataPath);
+            }
+            globalGeoDataPaths = Directory.GetFiles(globalDataPath);
+            if (globalGeoDataPaths.Length > 0)
+            {
+                foreach (string path in globalGeoDataPaths)
+                {
+                    GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(path, new GlobalGeoData());
+                }
+            }
+            else
+            {
+                GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(globalDataPath + "/Template.json", new GlobalGeoData());
             }
 
-            globalGeoDataPaths = Directory.GetFiles(EGC_CustomPath + "/GlobalGeoData");
+
+            /*
+            if (!Directory.Exists(globalDataPath))
+            {
+                Directory.CreateDirectory(globalDataPath);
+            }
+            globalGeoDataPaths = Directory.GetFiles(globalDataPath);
+
+            if (!Directory.Exists(levelSpecificDataPath))
+            {
+                Directory.CreateDirectory(levelSpecificDataPath);
+            }
+            perLevelDataPaths = Directory.GetFiles(levelSpecificDataPath);
 
             if (generateTemplate)
             {
                 LogEGC.Debug("Adding template files");
-                //File.WriteAllText(EGC_CustomPath + "/GlobalGeoData");
+                AddTemplateFiles(globalDataPath, levelSpecificDataPath);
             }
 
             LogEGC.Info("Json data Loaded");
@@ -58,6 +92,12 @@ namespace ExtraGeoCustomization.Utils
             {
 
             }
+
+            void AddTemplateFiles(string globalDataPath, string LevelSpecificDataPath)
+            {
+
+            }
+            */
         }
 
         private static T DeserializeJsonAndCreateIfNotReal<T>(string jsonPath, T data)
@@ -85,7 +125,7 @@ namespace ExtraGeoCustomization.Utils
         public static void OnHotReload()
         {
             LogEGC.Info("Reloading json");
-            LoadJson(true);
+            //LoadJson(true);
         }
 
         private static readonly JsonSerializerOptions _setting = new()
@@ -96,6 +136,7 @@ namespace ExtraGeoCustomization.Utils
             WriteIndented = true,
             IgnoreReadOnlyProperties = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters = { new BaseCustomisationConverter() },
         };
     }
 }

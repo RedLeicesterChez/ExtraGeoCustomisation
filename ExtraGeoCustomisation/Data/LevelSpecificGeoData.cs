@@ -3,8 +3,8 @@
     [System.Serializable]
     public class LevelSpecificGeoData
     {
-        public uint levelLayoutID;
+        public uint LevelLayoutID;
 
-        public LocalGeoData[] geoDatas;
+        public LocalGeoData[] GeoDatas;
     }
 }

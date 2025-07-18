@@ -1,8 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Unity.IL2CPP;
-using ExtraGeoCustomisation.CustomGeo;
 using ExtraGeoCustomisation.Patches;
 using ExtraGeoCustomisation.Utils;
+using ExtraGeoCustomization.Utils;
 using GTFO.API;
 using Il2CppInterop.Runtime.Injection;
 
@@ -15,15 +15,16 @@ namespace ExtraGeoCustomisation
         public override void Load()
         {
             LogEGC.Info("Loading ExtraGeoCustomization");
-            LevelGenPatches.Setup();
+            //LevelGenPatches.Setup();
             AssetAPI.OnAssetBundlesLoaded += RegisterTypes;
-            CustomGeoHandler geoData = new CustomGeoHandler();
-            geoData.Setup();
+            JsonHandler.SetupJson();
+            //CustomGeoHandler geoData = new CustomGeoHandler();
+            //geoData.Setup();
         }
 
         private static void RegisterTypes()
         {
-            ClassInjector.RegisterTypeInIl2Cpp<CustomGeoCustomisation>();
+            //ClassInjector.RegisterTypeInIl2Cpp<CustomGeoCustomisation>();
         }
     }
 }

@@ -1,16 +1,32 @@
-﻿namespace ExtraGeoCustomization.Data
+﻿using System.Text.Json.Serialization;
+
+namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
     public class DamageableArea : BaseCustomisation
     {
+        [JsonPropertyOrder(4)]
         public eDamageType DamageType { get; set; }
+
+        [JsonPropertyOrder(5)]
         public float Damage { get; set; }
+
+        [JsonPropertyOrder(6)]
         public float Infection { get; set; }
+
+        [JsonPropertyOrder(7)]
         public eTargetType TargetType { get; set; }
 
+        [JsonPropertyOrder(8)]
         public eAreaType AreaType { get; set; }
+
+        [JsonPropertyOrder(9)]
         public Vector3 Scale { get; set; }
+
+        [JsonPropertyOrder(10)]
         public Vector3 Position { get; set; }
+
+        [JsonPropertyOrder(11)]
         public string CustomMeshPath { get; set; }
     }
 

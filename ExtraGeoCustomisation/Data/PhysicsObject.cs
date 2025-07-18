@@ -1,14 +1,29 @@
-﻿namespace ExtraGeoCustomization.Data
+﻿using System.Text.Json.Serialization;
+
+namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
     public class PhysicsObject : BaseCustomisation
     {
+        [JsonPropertyOrder(4)]
         public float Mass { get; set; }
+
+        [JsonPropertyOrder(5)]
         public float Drag { get; set; }
+
+        [JsonPropertyOrder(6)]
         public float AngularDrag { get; set; }
+
+        [JsonPropertyOrder(7)]
         public bool UseGravity { get; set; }
+
+        [JsonPropertyOrder(8)]
         public RigidBodyConstraints Constraints { get; set; }
+
+        [JsonPropertyOrder(9)]
         public eInterpolation Interpolation { get; set; }
+
+        [JsonPropertyOrder(10)]
         public eCollisionDetection CollisionDetection { get; set; }
     }
 
