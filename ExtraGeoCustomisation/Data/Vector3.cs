@@ -3,7 +3,7 @@
     [System.Serializable]
     public class Vector3
     {
-        public Vector3(int x, int y, int z)
+        public Vector3(float x,float y, float z)
         {
             this.x = x;
             this.y = y;
