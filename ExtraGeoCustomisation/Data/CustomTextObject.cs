@@ -1,14 +1,14 @@
 ﻿namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
-    public class CustomTextObject
+    public class CustomTextObject : BaseCustomisation
     {
         public string Text { get; set; }
-        public int fontSize { get; set; }
-        public Color textColor { get; set; }
-        public Vector4 margins { get; set; }
-        public eFontAsset fontAsset { get; set; }
-        public eFontType fontType { get; set; }
+        public int FontSize { get; set; }
+        public Color TextColor { get; set; }
+        public Vector4 Margins { get; set; }
+        public eFontAsset FontAsset { get; set; }
+        public eFontType FontType { get; set; }
 
         [System.Serializable]
         public enum eFontAsset

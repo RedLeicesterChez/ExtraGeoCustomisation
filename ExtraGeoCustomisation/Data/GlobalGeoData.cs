@@ -6,6 +6,6 @@
         //I'm not 100% sure if this is a viable feature
         public string GeoPath { get; set; }
 
-        public ObjectCustomisation[] customisations { get; set; }
+        public BaseCustomisation[] customisations { get; set; }
     }
 }

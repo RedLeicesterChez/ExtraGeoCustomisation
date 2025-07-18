@@ -4,7 +4,6 @@
     public class LocalGeoData
     {
         public int geoIndex { get; set; }
-
-        public ObjectCustomisation[] customisations { get; set; }
+        public BaseCustomisation[] Customisations { get; set; }
     }
 }

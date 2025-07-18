@@ -1,7 +1,7 @@
 ﻿namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
-    public class DamageableArea
+    public class DamageableArea : BaseCustomisation
     {
         public eDamageType DamageType { get; set; }
         public float Damage { get; set; }

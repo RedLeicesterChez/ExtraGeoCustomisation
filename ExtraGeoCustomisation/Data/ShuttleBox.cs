@@ -3,7 +3,7 @@
 namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
-    public class ShuttleBox
+    public class ShuttleBox : BaseCustomisation
     {
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }
@@ -13,7 +13,5 @@ namespace ExtraGeoCustomization.Data
         public EventData[] EventsOnPickup { get; set; }
         public EventData[] EventsOnInsert { get; set; }
         public EventData[] EventsOnApproach { get; set; }
-
-        public int EventID { get; set; }
     }
 }

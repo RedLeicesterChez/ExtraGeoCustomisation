@@ -3,7 +3,7 @@
 namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
-    public class CustomTriggerBox
+    public class CustomTriggerBox : BaseCustomisation
     {
         public eAreaType CoverageType { get; set; }
         public Vector3 Position { get; set; }

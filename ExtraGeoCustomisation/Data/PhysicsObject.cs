@@ -1,7 +1,7 @@
 ﻿namespace ExtraGeoCustomization.Data
 {
     [System.Serializable]
-    public class PhysicsObject
+    public class PhysicsObject : BaseCustomisation
     {
         public float Mass { get; set; }
         public float Drag { get; set; }
@@ -10,7 +10,6 @@
         public RigidBodyConstraints Constraints { get; set; }
         public eInterpolation Interpolation { get; set; }
         public eCollisionDetection CollisionDetection { get; set; }
-        public int TriggerID { get; set; }
     }
 
     [System.Serializable]
