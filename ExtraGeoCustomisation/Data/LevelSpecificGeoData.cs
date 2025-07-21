@@ -24,8 +24,8 @@
                         FontSize = 18,
                         TextColor = new Color(1f, 0f, 0f, 1f), // Red
                         Margins = new Vector4(5, 5, 5, 5),
-                        FontAsset = TextObject.eFontAsset.FireMono,
-                        FontType = TextObject.eFontType.Bold
+                        FontAsset = eFontAsset.FireMono,
+                        FontType = eFontType.Bold
                     },
                     new DamageableArea
                     {
