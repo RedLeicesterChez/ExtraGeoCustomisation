@@ -22,24 +22,25 @@ namespace ExtraGeoCustomization.Data
 
         [JsonPropertyOrder(9)]
         public eFontType FontType { get; set; }
+    }
 
-        [System.Serializable]
-        public enum eFontAsset
-        {
-            FireMono = 0,
-            LiberationSans = 3,
-        }
+    [System.Serializable]
+    public enum eFontAsset
+    {
+        FireMono = 0,
+        ShareTechMono = 2,
+        LiberationSans = 3,
+    }
 
-        [System.Serializable]
-        public enum eFontType
-        {
-            Bold = 0,
-            Italic = 1,
-            Underline = 2,
-            Strikethrough = 3,
-            Lowercase = 4,
-            Uppercase = 5,
-            Smallcaps = 6,
-        }
+    [System.Serializable]
+    public enum eFontType
+    {
+        Bold = 0,
+        Italic = 1,
+        Underline = 2,
+        Strikethrough = 3,
+        Lowercase = 4,
+        Uppercase = 5,
+        Smallcaps = 6,
     }
 }

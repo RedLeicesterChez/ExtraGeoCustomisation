@@ -5,7 +5,7 @@ namespace ExtraGeoCustomization.Handlers.Customisations
 {
     public class CustomisationHandlerBase : MonoBehaviour
     {
-        public virtual void Setup()
+        public virtual void Setup(BaseCustomisation data)
         {
             
         }
@@ -22,7 +22,7 @@ namespace ExtraGeoCustomization.Handlers.Customisations
             Enable = 1,
             Disable = 2,
             Trigger = 3,
-            
+            Update = 4,
 
 
 
