@@ -1,12 +1,14 @@
-﻿using Agents;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Unity.IL2CPP;
+using ExtraGeoCustomisation.Handlers;
+using ExtraGeoCustomisation.Patches;
 using ExtraGeoCustomisation.Utils;
 using ExtraGeoCustomization.Handlers;
+using ExtraGeoCustomization.Handlers.Customisations;
 using ExtraGeoCustomization.Utils;
 using GTFO.API;
 using HarmonyLib;
-using Player;
+using Il2CppInterop.Runtime.Injection;
 
 namespace ExtraGeoCustomisation
 {
@@ -15,11 +17,14 @@ namespace ExtraGeoCustomisation
     internal class EntryPoint : BasePlugin
     {
         internal static GlobalGeoHandler globalGeoHandler;
+        internal static LevelManager levelManager;
+        private static Harmony _Harmony;
         public override void Load()
         {
             LogEGC.Info("Loading ExtraGeoCustomization");
+            _Harmony = new Harmony("ExtraGeoCustomisation.Harmony");
             globalGeoHandler = new GlobalGeoHandler();
-            //LevelGenPatches.Setup();
+            LevelGenPatches.Setup(_Harmony);
             AssetAPI.OnAssetBundlesLoaded += RegisterTypes;
             AssetAPI.OnAssetBundlesLoaded += OnAssetsLoaded;
             JsonHandler.SetupJson();
@@ -32,7 +37,8 @@ namespace ExtraGeoCustomisation
         private static void RegisterTypes()
         {
             //ClassInjector.RegisterTypeInIl2Cpp<CustomGeoCustomisation>();
-
+            ClassInjector.RegisterTypeInIl2Cpp<CustomisationHandlerBase>();
+            ClassInjector.RegisterTypeInIl2Cpp<TextObjectHandler>();
         }
 
         private static void OnAssetsLoaded()

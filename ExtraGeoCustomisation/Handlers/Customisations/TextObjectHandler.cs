@@ -19,7 +19,9 @@ namespace ExtraGeoCustomization.Handlers.Customisations
                 LogEGC.ErrorImportant("Tried setting up TextObject and data was null go name: " + gameObject.name);
                 return;
             }
+            LogEGC.Info("Setup Custom Text object with go name: " + gameObject.name);
             tmp = gameObject.AddComponent<TextMeshPro>();
+            UpdateText(data);
         }
 
         public override void ChangeState(eCustomisationState newState, BaseCustomisation newData)

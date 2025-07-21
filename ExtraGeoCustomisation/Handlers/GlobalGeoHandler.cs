@@ -1,20 +1,16 @@
 ﻿using ExtraGeoCustomisation.Utils;
 using ExtraGeoCustomization.Data;
+using ExtraGeoCustomization.Handlers.Customisations;
+using ExtraGeoCustomization.Utils;
 using GTFO.API;
 using LevelGeneration;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace ExtraGeoCustomization.Handlers
 {
-    public class GlobalGeoHandler
+    internal class GlobalGeoHandler
     {
-        public void Setup()
-        {
-            
-        }
-
         public void LoadGlobalGeos(bool isReload = false)
         {
             if (isReload)
@@ -24,14 +20,13 @@ namespace ExtraGeoCustomization.Handlers
 
             foreach (GlobalGeoData data in JsonHandler.GlobalGeoDatas)
             {
-                GameObject geo = GetAndModifyGeo(data.GeoPath, data.Customisations);
-                LoadedGeos.Add(geo);
+                GetAndModifyGeo(data.GeoPath, data.Customisations);
             }
         }
-        //Are internal fields hidden?
-        public List<GameObject> LoadedGeos = new();
 
-        private GameObject GetAndModifyGeo(string geoPath, BaseCustomisation[] Customisations)
+        public Dictionary<string, GameObject> LoadedGeos = new();
+
+        private void GetAndModifyGeo(string geoPath, BaseCustomisation[] Customisations)
         {
             UnityEngine.Object obja = null;
             obja = AssetAPI.GetLoadedAsset(geoPath);
@@ -40,8 +35,7 @@ namespace ExtraGeoCustomization.Handlers
             {
                 GameObject obj = obja.TryCast<GameObject>();
                 obj.name = obj.name + "Modified";
-                //TODO: Add customisation stuff (Customisations will be created when the geo is built but
-                //registered beforehand)
+
                 List<LG_WorldEventObject> weos = new();
 
                 //Not sure if i should include inactive children but I might add a config later
@@ -49,23 +43,41 @@ namespace ExtraGeoCustomization.Handlers
 
                 foreach (LG_WorldEventObject weo in weos)
                 {
-                    LogEGC.Info("Found world event object with name: " + weo.gameObject.name);
+                    GameObject weoObject = weo.gameObject;
+                    LogEGC.Info("Found world event object with name: " + weoObject.name);
+                    BaseCustomisation customisation = DataUtils.GetCustomisationWithName(weoObject.name, Customisations);
+
+                    switch (customisation.Type)
+                    {
+                        case eCustomisationType.TextObject:
+                        {
+                            weoObject.AddComponent<TextObjectHandler>().Setup(customisation);
+                        }
+                        break;
+                    }
                 }
 
-                
 
 
 
-
-
-                LogEGC.Info("Returning obj with name: " + obj.name);
-                return obj;
+                LogEGC.Info("Adding obj to the dictionary with name: " + obj.name);
+                LoadedGeos.Add(obja.name, obj);
             }
             else
             {
-                LogEGC.Error("Couldn't get geo from path: " + geoPath + "\nWrong path or missing bundle?");
-                return null;
+                LogEGC.ErrorImportant("Couldn't get geo from path: " + geoPath + "\nWrong path or missing bundle?");
             }
+        }
+
+        public GameObject GetModifiedGeomorph(string originalPath)
+        {
+            if (LoadedGeos.ContainsKey(originalPath))
+            {
+                LogEGC.Info("returning modified geo path: " + originalPath);
+                return LoadedGeos[originalPath];
+            }
+            LogEGC.Error("Couldn't get modified geo original path: " + originalPath);
+            return null;
         }
     }
 }

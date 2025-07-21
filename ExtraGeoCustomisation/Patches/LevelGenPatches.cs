@@ -2,19 +2,34 @@
 using HarmonyLib;
 using LevelGeneration;
 using System;
+using UnityEngine;
 
 namespace ExtraGeoCustomisation.Patches
 {
-    public class LevelGenPatches
+    internal static class LevelGenPatches
     {
-        public static void Setup()
+        public static void Setup(Harmony harmony)
         {
             LogEGC.Info("Patching LevelGen");
-            Harmony.CreateAndPatchAll(typeof(Patch_LG_Factory_FactoryDone));
-            Harmony.CreateAndPatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerStartExpedition));
-            Harmony.CreateAndPatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerSolvedObjectiveItem));
-            Harmony.CreateAndPatchAll(typeof(Patch_WardenObjectiveManager_ActivateWinCondition));
-            Harmony.CreateAndPatchAll(typeof(Patch_GS_AfterLevel_CleanupAfterExpedition));
+            harmony.PatchAll(typeof(Patch_LG_Factory_FactoryDone));
+            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerStartExpedition));
+            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerSolvedObjectiveItem));
+            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_ActivateWinCondition));
+            harmony.PatchAll(typeof(Patch_GS_AfterLevel_CleanupAfterExpedition));
+            harmony.PatchAll(typeof(Patch_LG_LevelBuilder_PlaceRoot));
+        }
+
+        [HarmonyPatch(typeof(LG_LevelBuilder), "PlaceRoot")]
+        private class Patch_LG_LevelBuilder_PlaceRoot
+        {
+            public static void Postfix(ref GameObject tilePrefab)
+            {
+                GameObject modifiedGeo = EntryPoint.globalGeoHandler.GetModifiedGeomorph(tilePrefab.name);
+                if (modifiedGeo != null)
+                {
+                    tilePrefab = modifiedGeo;
+                }
+            }
         }
 
         [HarmonyPatch(typeof(LG_Factory), "FactoryDone")]
