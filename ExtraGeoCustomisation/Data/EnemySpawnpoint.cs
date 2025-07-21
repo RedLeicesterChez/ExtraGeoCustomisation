@@ -13,7 +13,7 @@ namespace ExtraGeoCustomization.Data
         public Vector3 Rotation { get; set; }
 
         [JsonPropertyOrder(6)]
-        public EventData[] EventsOnEnemySpawn { get; set; }
+        public BaseEventData[] EventsOnEnemySpawn { get; set; }
 
         [JsonIgnore]
         public bool StartEnabled;

@@ -19,12 +19,12 @@ namespace ExtraGeoCustomization.Data
         public float OnApproachTriggerSize { get; set; }
 
         [JsonPropertyOrder(8)]
-        public EventData[] EventsOnPickup { get; set; }
+        public BaseEventData[] EventsOnPickup { get; set; }
 
         [JsonPropertyOrder(9)]
-        public EventData[] EventsOnInsert { get; set; }
+        public BaseEventData[] EventsOnInsert { get; set; }
 
         [JsonPropertyOrder(10)]
-        public EventData[] EventsOnApproach { get; set; }
+        public BaseEventData[] EventsOnApproach { get; set; }
     }
 }

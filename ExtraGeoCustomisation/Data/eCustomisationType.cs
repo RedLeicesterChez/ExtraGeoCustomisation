@@ -14,7 +14,7 @@
         Interactableobject = 8, //An object that can be interacted with
         EnemySpawnpoint = 9, //A plugin spawnable enemy spawnpoint with custom spawn events
         CustomFogArea = 10, //Custom Fog Area (like in arbo A2)
-        CustomTriggerBoxe = 11, //Custom trigger boxes with a variety of triggers
+        CustomTriggerBox = 11, //Custom trigger boxes with a variety of triggers
         CustomGenerator = 12, //Custom generators that you can insert or take cells out of
         TileEnemy = 13, //enemies built into the tile could be used to make a bossfight
 

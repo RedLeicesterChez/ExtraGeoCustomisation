@@ -81,6 +81,7 @@ namespace ExtraGeoCustomisation.Handlers
         private List<LG_WorldEventObject> worldEventObjects;
         private LG_Geomorph geoComp;
         private bool isSetup = false;
+        public bool isGloballyModified = false;
         public void Setup(int index)
         {
             //LogEGC.Info("setup called");

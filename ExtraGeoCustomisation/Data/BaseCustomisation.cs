@@ -17,9 +17,9 @@ namespace ExtraGeoCustomization.Data
         public int EventID { get; set; }
 
         [JsonPropertyOrder(2)]
-        public EventData[] EventsOnActivate { get; set; }
+        public BaseEventData[] EventsOnActivate { get; set; }
 
         [JsonPropertyOrder(3)]
-        public EventData[] EventsOnDeactivate { get; set; }
+        public BaseEventData[] EventsOnDeactivate { get; set; }
     }
 }

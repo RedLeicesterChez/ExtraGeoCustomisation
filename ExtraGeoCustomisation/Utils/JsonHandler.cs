@@ -1,16 +1,13 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.IO;
-using ExtraGeoCustomisation.Utils;
 using MTFO.API;
 using ExtraGeoCustomization.Data;
 using System.Collections.Generic;
-using HarmonyLib;
-using System;
 
-namespace ExtraGeoCustomization.Utils
+namespace ExtraGeoCustomisation.Utils
 {
-    public class JsonHandler
+    internal class JsonHandler
     {
         private static string EGC_CustomPath;
         public static void SetupJson()
@@ -49,24 +46,32 @@ namespace ExtraGeoCustomization.Utils
 
             LogEGC.Info("Loading Json Data");
 
+            
             if (!Directory.Exists(globalDataPath))
             {
                 Directory.CreateDirectory(globalDataPath);
             }
             globalGeoDataPaths = Directory.GetFiles(globalDataPath);
+            GlobalGeoDatas.Clear();
             if (globalGeoDataPaths.Length > 0)
             {
                 foreach (string path in globalGeoDataPaths)
                 {
                     LogEGC.Info("Loading file with path: " + path);
+                    if (path.Contains("Template"))
+                    {
+                        LogEGC.Debug("Tried loading template file aborting");
+                        continue;
+                    }
                     GlobalGeoData data = Deserialize(path, new GlobalGeoData());
                     GlobalGeoDatas.Add(data);
                 }
             }
             else
             {
-                LogEGC.Info("Generating template file as no files exist");
+                LogEGC.Info("Generating template GGD file as no files exist");
                 GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(globalDataPath + "/Template.json", new GlobalGeoData());
+                GlobalGeoDatas.Add(data);
             }
 
             if (!Directory.Exists(levelSpecificDataPath))
@@ -74,19 +79,26 @@ namespace ExtraGeoCustomization.Utils
                 Directory.CreateDirectory(levelSpecificDataPath);
             }
             perLevelDataPaths = Directory.GetFiles(levelSpecificDataPath);
+            LevelSpecificGeoDatas.Clear();
             if (perLevelDataPaths.Length > 0)
             {
                 foreach (string path in perLevelDataPaths)
                 {
                     LogEGC.Info("Loading file with path: " + path);
+                    if (path.Contains("Template"))
+                    {
+                        LogEGC.Debug("Tried loading template file aborting");
+                        continue;
+                    }
                     LevelSpecificGeoData data = Deserialize(path, new LevelSpecificGeoData());
                     LevelSpecificGeoDatas.Add(data);
                 }
             }
             else
             {
-                LogEGC.Info("Generating template file as no files exist");
+                LogEGC.Info("Generating template LSGD file as no files exist");
                 LevelSpecificGeoData data = DeserializeJsonAndCreateIfNotReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
+                LevelSpecificGeoDatas.Add(data);
             }
 
             if (generateTemplate)
@@ -94,7 +106,6 @@ namespace ExtraGeoCustomization.Utils
                 LogEGC.Info("Generating new template files");
                 DeserializeAndOverwriteIfReal(globalDataPath + "/Template.json", new GlobalGeoData());
                 DeserializeAndOverwriteIfReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
-
             }
 
 

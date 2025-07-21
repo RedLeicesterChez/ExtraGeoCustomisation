@@ -22,10 +22,10 @@ namespace ExtraGeoCustomization.Data
         public uint ItemDataID { get; set; }
 
         [JsonPropertyOrder(9)]
-        public EventData[] EventsOnInsert { get; set; }
+        public BaseEventData[] EventsOnInsert { get; set; }
 
         [JsonPropertyOrder(10)]
-        public EventData[] EventsOnRemove { get; set; }
+        public BaseEventData[] EventsOnRemove { get; set; }
 
         [JsonIgnore]
         public bool StartEnabled;

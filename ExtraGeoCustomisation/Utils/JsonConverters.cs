@@ -3,7 +3,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ExtraGeoCustomization.Utils
+namespace ExtraGeoCustomisation.Utils
 {
     //Code provided by ChatGPT (because i don't know how to do this shit)
     public class BaseCustomisationConverter : JsonConverter<BaseCustomisation>
@@ -32,7 +32,7 @@ namespace ExtraGeoCustomization.Utils
                 eCustomisationType.Interactableobject => JsonSerializer.Deserialize<InteractableObject>(root.GetRawText(), options),
                 eCustomisationType.EnemySpawnpoint => JsonSerializer.Deserialize<EnemySpawnpoint>(root.GetRawText(), options),
                 eCustomisationType.CustomFogArea => JsonSerializer.Deserialize<CustomFogArea>(root.GetRawText(), options),
-                eCustomisationType.CustomTriggerBoxe => JsonSerializer.Deserialize<CustomTriggerBox>(root.GetRawText(), options),
+                eCustomisationType.CustomTriggerBox => JsonSerializer.Deserialize<CustomTriggerBox>(root.GetRawText(), options),
                 eCustomisationType.CustomGenerator => JsonSerializer.Deserialize<CustomGenerator>(root.GetRawText(), options),
                 _ => throw new JsonException($"Unknown customisation type: {type}")
             };

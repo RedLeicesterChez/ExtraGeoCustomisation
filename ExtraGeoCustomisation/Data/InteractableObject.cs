@@ -22,9 +22,9 @@ namespace ExtraGeoCustomization.Data
         public string InteractableObjectPath { get; set; }
 
         [JsonPropertyOrder(9)]
-        public EventData[] EventsOnInteract { get; set; }
+        public BaseEventData[] EventsOnInteract { get; set; }
 
         [JsonPropertyOrder(10)]
-        public EventData[] EventsOnApproach { get; set; }
+        public BaseEventData[] EventsOnApproach { get; set; }
     }
 }

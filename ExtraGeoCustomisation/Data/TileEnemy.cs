@@ -9,8 +9,8 @@ namespace ExtraGeoCustomization.Data
         public uint EnemyDataID { get; set; }
         public bool StartAsleep { get; set; }
         public PhaseData[] Phases { get; set; }
-        public EventData[] EventsOnWakeup { get; set; }
-        public EventData[] EventsOnKill { get; set; }
+        public BaseEventData[] EventsOnWakeup { get; set; }
+        public BaseEventData[] EventsOnKill { get; set; }
     }
 
     [System.Serializable]
@@ -18,8 +18,8 @@ namespace ExtraGeoCustomization.Data
     {
         public int DamageUntilProgress { get; set; }
         public RemoteWeakspot[] RemoteWeakspots { get; set; }
-        public EventData[] EventsOnEnterPhase { get; set; }
-        public EventData[] EventsOnExitPhase { get; set; }
+        public BaseEventData[] EventsOnEnterPhase { get; set; }
+        public BaseEventData[] EventsOnExitPhase { get; set; }
     }
 
     [System.Serializable]

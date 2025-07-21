@@ -19,12 +19,12 @@ namespace ExtraGeoCustomization.Data
         public Vector3 Vector3 { get; set; }
 
         [JsonPropertyOrder(8)]
-        public EventData[] EventsOnEnter { get; set; }
+        public BaseEventData[] EventsOnEnter { get; set; }
 
         [JsonPropertyOrder(9)]
-        public EventData[] EventsOnExit { get; set; }
+        public BaseEventData[] EventsOnExit { get; set; }
 
         [JsonPropertyOrder(10)]
-        public EventData[] EventsOnLookat { get; set; }
+        public BaseEventData[] EventsOnLookat { get; set; }
     }
 }

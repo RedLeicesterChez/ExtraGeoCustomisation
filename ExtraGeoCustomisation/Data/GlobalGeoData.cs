@@ -148,7 +148,7 @@
             },
             new CustomTriggerBox
             {
-                Type = eCustomisationType.CustomTriggerBoxe,
+                Type = eCustomisationType.CustomTriggerBox,
                 EventID = 11,
                 StartEnabled = true,
                 EventsOnActivate = [],
