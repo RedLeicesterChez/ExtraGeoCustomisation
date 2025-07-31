@@ -13,7 +13,7 @@ CustomFogArea fog spheres and cubes with infection support
 CustomTriggerBox trigger events when looking at or passing through these boxes
 CustomGenerator generators that you can insert and remove cells from
 TileEnemy boss fight time (very WIP)
-
+CustomAnimation world event animation or custom json animation (fancy experimental stuff)
 CustomChainedPuzzle scans not linked to doors or terminals (normal scans)
 TerminalOverride override terminal state and other things (also terminal colours)
 
