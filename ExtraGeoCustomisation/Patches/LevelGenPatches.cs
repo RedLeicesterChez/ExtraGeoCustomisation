@@ -22,7 +22,7 @@ namespace ExtraGeoCustomisation.Patches
         [HarmonyPatch(typeof(LG_LevelBuilder), "PlaceRoot")]
         private class Patch_LG_LevelBuilder_PlaceRoot
         {
-            public static void Postfix(ref GameObject tilePrefab)
+            public static void Prefix(ref GameObject tilePrefab)
             {
                 GameObject modifiedGeo = EntryPoint.globalGeoHandler.GetModifiedGeomorph(tilePrefab.name);
                 if (modifiedGeo != null)

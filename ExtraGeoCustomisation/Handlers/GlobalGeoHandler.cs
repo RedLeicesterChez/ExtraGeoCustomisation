@@ -1,7 +1,9 @@
-﻿using ExtraGeoCustomisation.Utils;
+﻿using AssetShards;
+using ExtraGeoCustomisation.Utils;
 using ExtraGeoCustomization.Data;
 using ExtraGeoCustomization.Handlers.Customisations;
 using ExtraGeoCustomization.Utils;
+using GameData;
 using GTFO.API;
 using LevelGeneration;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ namespace ExtraGeoCustomization.Handlers
         {
             UnityEngine.Object obja = null;
             obja = AssetAPI.GetLoadedAsset(geoPath);
+            //TODO: Add compatability for vanilla geos (probably has to be done when we load the level)
 
             if (obja != null)
             {
