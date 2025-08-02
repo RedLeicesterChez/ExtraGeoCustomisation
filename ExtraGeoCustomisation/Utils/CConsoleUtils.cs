@@ -1,7 +1,7 @@
 ﻿using CConsole.Interop;
 using ExtraGeoCustomisation.Utils;
 
-namespace ExtraGeoCustomization.Utils
+namespace ExtraGeoCustomisation.Utils
 {
     public static class CConsoleUtils
     {

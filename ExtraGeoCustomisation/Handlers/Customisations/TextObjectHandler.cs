@@ -1,11 +1,11 @@
 ﻿using ExtraGeoCustomisation.Utils;
-using ExtraGeoCustomization.Data;
-using ExtraGeoCustomization.Utils;
+using ExtraGeoCustomisation.Data;
+using ExtraGeoCustomisation.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Tango;
 
-namespace ExtraGeoCustomization.Handlers.Customisations
+namespace ExtraGeoCustomisation.Handlers.Customisations
 {
     public class TextObjectHandler : CustomisationHandlerBase
     {

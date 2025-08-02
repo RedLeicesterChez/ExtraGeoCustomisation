@@ -1,7 +1,7 @@
 ﻿using LevelGeneration;
 using System;
 
-namespace ExtraGeoCustomization.Handlers
+namespace ExtraGeoCustomisation.Handlers
 {
     internal class LevelManager
     {

@@ -1,4 +1,4 @@
-﻿namespace ExtraGeoCustomization.Data
+﻿namespace ExtraGeoCustomisation.Data
 {
     [System.Serializable]
     public class GlobalGeoData

@@ -1,15 +1,14 @@
 ﻿using AssetShards;
 using ExtraGeoCustomisation.Utils;
-using ExtraGeoCustomization.Data;
-using ExtraGeoCustomization.Handlers.Customisations;
-using ExtraGeoCustomization.Utils;
+using ExtraGeoCustomisation.Data;
+using ExtraGeoCustomisation.Handlers.Customisations;
 using GameData;
 using GTFO.API;
 using LevelGeneration;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ExtraGeoCustomization.Handlers
+namespace ExtraGeoCustomisation.Handlers
 {
     internal class GlobalGeoHandler
     {

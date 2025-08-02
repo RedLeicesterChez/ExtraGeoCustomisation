@@ -3,9 +3,7 @@ using BepInEx.Unity.IL2CPP;
 using ExtraGeoCustomisation.Handlers;
 using ExtraGeoCustomisation.Patches;
 using ExtraGeoCustomisation.Utils;
-using ExtraGeoCustomization.Handlers;
-using ExtraGeoCustomization.Handlers.Customisations;
-using ExtraGeoCustomization.Utils;
+using ExtraGeoCustomisation.Handlers.Customisations;
 using GTFO.API;
 using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
@@ -21,7 +19,7 @@ namespace ExtraGeoCustomisation
         private static Harmony _Harmony;
         public override void Load()
         {
-            LogEGC.Info("Loading ExtraGeoCustomization");
+            LogEGC.Info("Loading ExtraGeoCustomisation");
             _Harmony = new Harmony("ExtraGeoCustomisation.Harmony");
             globalGeoHandler = new GlobalGeoHandler();
             LevelGenPatches.Setup(_Harmony);

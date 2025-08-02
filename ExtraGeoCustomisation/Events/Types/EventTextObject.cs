@@ -1,6 +1,6 @@
-﻿using ExtraGeoCustomization.Data;
+﻿using ExtraGeoCustomisation.Data;
 
-namespace ExtraGeoCustomization.Events.Types
+namespace ExtraGeoCustomisation.Events.Types
 {
     public class EventTextObject : BaseEventData
     {

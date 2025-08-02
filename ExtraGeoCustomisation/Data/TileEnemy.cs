@@ -1,6 +1,6 @@
-﻿using ExtraGeoCustomization.Events;
+﻿using ExtraGeoCustomisation.Events;
 
-namespace ExtraGeoCustomization.Data
+namespace ExtraGeoCustomisation.Data
 {
     //Needs to be fleshed out more but I'm tired will do at a later date
     [System.Serializable]

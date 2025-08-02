@@ -1,4 +1,4 @@
-﻿namespace ExtraGeoCustomization.Events
+﻿namespace ExtraGeoCustomisation.Events
 {
     [System.Serializable]
     public class BaseEventData

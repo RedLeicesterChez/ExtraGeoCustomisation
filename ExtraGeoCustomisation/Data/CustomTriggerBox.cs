@@ -1,7 +1,7 @@
-﻿using ExtraGeoCustomization.Events;
+﻿using ExtraGeoCustomisation.Events;
 using System.Text.Json.Serialization;
 
-namespace ExtraGeoCustomization.Data
+namespace ExtraGeoCustomisation.Data
 {
     [System.Serializable]
     public class CustomTriggerBox : BaseCustomisation

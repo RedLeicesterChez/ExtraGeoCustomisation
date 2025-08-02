@@ -1,7 +1,7 @@
-﻿using ExtraGeoCustomization.Data;
+﻿using ExtraGeoCustomisation.Data;
 using UnityEngine;
 
-namespace ExtraGeoCustomization.Handlers.Customisations
+namespace ExtraGeoCustomisation.Handlers.Customisations
 {
     public class CustomisationHandlerBase : MonoBehaviour
     {

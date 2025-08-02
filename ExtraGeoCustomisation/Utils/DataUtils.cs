@@ -1,13 +1,13 @@
 ﻿using AssetShards;
 using ExtraGeoCustomisation.Utils;
-using ExtraGeoCustomization.Data;
+using ExtraGeoCustomisation.Data;
 using GameData;
 using GTFO.API;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace ExtraGeoCustomization.Utils
+namespace ExtraGeoCustomisation.Utils
 {
     internal static class DataUtils
     {

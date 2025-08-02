@@ -17,6 +17,15 @@ namespace ExtraGeoCustomisation.Patches
             harmony.PatchAll(typeof(Patch_WardenObjectiveManager_ActivateWinCondition));
             harmony.PatchAll(typeof(Patch_GS_AfterLevel_CleanupAfterExpedition));
             harmony.PatchAll(typeof(Patch_LG_LevelBuilder_PlaceRoot));
+            LG_Factory.add_OnFactoryBuildStart((Action)Patch_LG_Factory_OnFactoryBuildStart.LinkEvent);
+        }
+
+        private class Patch_LG_Factory_OnFactoryBuildStart
+        {
+            public static void LinkEvent()
+            {
+                OnBuildStart?.Invoke();
+            }
         }
 
         [HarmonyPatch(typeof(LG_LevelBuilder), "PlaceRoot")]
