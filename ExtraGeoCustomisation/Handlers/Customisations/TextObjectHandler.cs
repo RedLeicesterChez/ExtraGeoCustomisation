@@ -1,9 +1,6 @@
 ﻿using ExtraGeoCustomisation.Utils;
 using ExtraGeoCustomisation.Data;
-using ExtraGeoCustomisation.Utils;
 using TMPro;
-using UnityEngine;
-using UnityEngine.XR.Tango;
 
 namespace ExtraGeoCustomisation.Handlers.Customisations
 {

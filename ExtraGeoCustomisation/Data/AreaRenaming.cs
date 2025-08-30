@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using ExtraGeoCustomisation.Events;
 
 namespace ExtraGeoCustomisation.Data
 {
@@ -15,6 +16,12 @@ namespace ExtraGeoCustomisation.Data
         public bool SeparateTerminalPings { get; set; }
 
         [JsonIgnore]
-        public bool StartEnabled;
+        public new bool StartEnabled;
+
+        [JsonIgnore]
+        public new BaseEventData[] EventsOnActivate;
+
+        [JsonIgnore]
+        public new BaseEventData[] EventsOnDeactivate;
     }
 }

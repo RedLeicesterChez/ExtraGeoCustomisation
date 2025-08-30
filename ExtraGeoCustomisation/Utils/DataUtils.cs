@@ -1,11 +1,8 @@
-﻿using AssetShards;
-using ExtraGeoCustomisation.Utils;
-using ExtraGeoCustomisation.Data;
-using GameData;
+﻿using ExtraGeoCustomisation.Data;
 using GTFO.API;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ExtraGeoCustomisation.Utils
 {
@@ -60,14 +57,10 @@ namespace ExtraGeoCustomisation.Utils
                     }
                 }
                 break;
-                
+
 
 
             }
-
-
-
-
             return null;
         }
     }

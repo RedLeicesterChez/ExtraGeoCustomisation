@@ -14,7 +14,7 @@ namespace ExtraGeoCustomisation.Handlers
         public void Setup()
         {
             //LevelGenPatches.OnBuildDone += OnLevelGenDone;
-            LevelGenPatches.OnStartExpedition += OnLevelGenDone;
+            //LevelGenPatches.OnStartExpedition += OnLevelGenDone;
         }
 
         public void GetLoadedAsset(string path)

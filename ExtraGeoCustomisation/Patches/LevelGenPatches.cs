@@ -11,87 +11,21 @@ namespace ExtraGeoCustomisation.Patches
         public static void Setup(Harmony harmony)
         {
             LogEGC.Info("Patching LevelGen");
-            harmony.PatchAll(typeof(Patch_LG_Factory_FactoryDone));
-            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerStartExpedition));
-            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_OnLocalPlayerSolvedObjectiveItem));
-            harmony.PatchAll(typeof(Patch_WardenObjectiveManager_ActivateWinCondition));
-            harmony.PatchAll(typeof(Patch_GS_AfterLevel_CleanupAfterExpedition));
             harmony.PatchAll(typeof(Patch_LG_LevelBuilder_PlaceRoot));
-            LG_Factory.add_OnFactoryBuildStart((Action)Patch_LG_Factory_OnFactoryBuildStart.LinkEvent);
-        }
-
-        private class Patch_LG_Factory_OnFactoryBuildStart
-        {
-            public static void LinkEvent()
-            {
-                OnBuildStart?.Invoke();
-            }
         }
 
         [HarmonyPatch(typeof(LG_LevelBuilder), "PlaceRoot")]
         private class Patch_LG_LevelBuilder_PlaceRoot
         {
-            public static void Prefix(ref GameObject tilePrefab)
+            public static void Prefix(ref GameObject tilePrefab, LG_Floor floor, eDimensionIndex dimensionIndex)
             {
-                GameObject modifiedGeo = EntryPoint.globalGeoHandler.GetModifiedGeomorph(tilePrefab.name);
+                LogEGC.Info("Placing root tileprefab \nname: " + tilePrefab.name + "\nFloor: " + floor);
+                GameObject modifiedGeo = EntryPoint.geoHandler.OnPlaceRoot(tilePrefab, floor, dimensionIndex);
                 if (modifiedGeo != null)
                 {
                     tilePrefab = modifiedGeo;
                 }
             }
         }
-
-        [HarmonyPatch(typeof(LG_Factory), "FactoryDone")]
-        private class Patch_LG_Factory_FactoryDone
-        {
-            public static void Postfix()
-            {
-                OnBuildDone?.Invoke();
-            }
-        }
-
-        [HarmonyPatch(typeof(WardenObjectiveManager), "OnLocalPlayerStartExpedition")]
-        private class Patch_WardenObjectiveManager_OnLocalPlayerStartExpedition
-        {
-            public static void Postfix()
-            {
-                OnStartExpedition?.Invoke();
-            }
-        }
-
-        [HarmonyPatch(typeof(WardenObjectiveManager), "OnLocalPlayerSolvedObjectiveItem")]
-        private class Patch_WardenObjectiveManager_OnLocalPlayerSolvedObjectiveItem
-        {
-            public static void Postfix()
-            {
-                OnSolvedObjectiveItem?.Invoke();
-            }
-        }
-
-        [HarmonyPatch(typeof(WardenObjectiveManager), "ActivateWinCondition")]
-        private class Patch_WardenObjectiveManager_ActivateWinCondition
-        {
-            public static void Postfix()
-            {
-                OnObjectiveComplete?.Invoke();
-            }
-        }
-
-        [HarmonyPatch(typeof(GS_AfterLevel), "CleanupAfterExpedition")]
-        private class Patch_GS_AfterLevel_CleanupAfterExpedition
-        {
-            public static void Postfix()
-            {
-                OnLevelCleanup?.Invoke();
-            }
-        }
-
-        public static event Action OnBuildStart;
-        public static event Action OnBuildDone;
-
-        public static event Action OnStartExpedition;
-        public static event Action OnSolvedObjectiveItem;
-        public static event Action OnObjectiveComplete;
-        public static event Action OnLevelCleanup;
     }
 }

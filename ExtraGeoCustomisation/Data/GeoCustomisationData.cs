@@ -1,9 +1,9 @@
 ﻿namespace ExtraGeoCustomisation.Data
 {
     [System.Serializable]
-    public class LevelSpecificGeoData
+    public class GeoCustomisationData
     {
-        public uint LevelLayoutID;
+        public int LevelLayoutID;
 
         public LocalGeoData[] GeoDatas = new LocalGeoData[]
         {
@@ -13,6 +13,13 @@
 
                 Customisations = new BaseCustomisation[]
                 {
+                    new WorldEventObject
+                    {
+                        Type = eCustomisationType.WorldEventObject,
+                        WorldObjectName = "segs",
+                        Position = new Vector3(0, 0, 0),
+                        Rotation = new Vector3(0, 0, 0),
+                    },
                     new TextObject
                     {
                         Type = eCustomisationType.TextObject,
@@ -25,7 +32,8 @@
                         TextColor = new Color(1f, 0f, 0f, 1f), // Red
                         Margins = new Vector4(5, 5, 5, 5),
                         FontAsset = eFontAsset.FireMono,
-                        FontType = eFontType.Bold
+                        FontType = eFontType.Bold,
+                        WorldObjectName = "segs"
                     },
                     new DamageableArea
                     {
@@ -62,8 +70,6 @@
                     {
                         Type = eCustomisationType.AreaRenaming,
                         EventID = 4,
-                        EventsOnActivate = [],
-                        EventsOnDeactivate = [],
                         RenamedText = "Z1984",
                         AreaIndexes = new int[] { 0, 1 },
                         SeparateTerminalPings = true

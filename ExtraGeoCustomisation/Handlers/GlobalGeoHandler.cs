@@ -12,6 +12,7 @@ namespace ExtraGeoCustomisation.Handlers
 {
     internal class GlobalGeoHandler
     {
+        /*
         public void LoadGlobalGeos(bool isReload = false)
         {
             if (isReload)
@@ -31,7 +32,6 @@ namespace ExtraGeoCustomisation.Handlers
         {
             UnityEngine.Object obja = null;
             obja = AssetAPI.GetLoadedAsset(geoPath);
-            //TODO: Add compatability for vanilla geos (probably has to be done when we load the level)
 
             if (obja != null)
             {
@@ -81,5 +81,6 @@ namespace ExtraGeoCustomisation.Handlers
             LogEGC.Error("Couldn't get modified geo original path: " + originalPath);
             return null;
         }
+        */
     }
 }

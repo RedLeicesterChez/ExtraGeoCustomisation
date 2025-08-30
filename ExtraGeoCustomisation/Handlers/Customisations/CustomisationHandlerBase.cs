@@ -7,7 +7,7 @@ namespace ExtraGeoCustomisation.Handlers.Customisations
     {
         public virtual void Setup(BaseCustomisation data)
         {
-            
+
         }
 
         public virtual void ChangeState(eCustomisationState newState, BaseCustomisation newData)

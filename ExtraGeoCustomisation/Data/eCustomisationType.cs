@@ -3,7 +3,7 @@
     [System.Serializable]
     public enum eCustomisationType
     {
-        none = 0,
+        WorldEventObject = 0, //Base world event object
         TextObject = 1, //TMP object
         DamageArea = 2, //Damages/heals or infects/disinfects players/enemies
         ShuttleBox = 3, //Shuttlebox with pickup or discard objects (with events)
@@ -18,7 +18,7 @@
         CustomGenerator = 12, //Custom generators that you can insert or take cells out of
         TileEnemy = 13, //enemies built into the tile could be used to make a bossfight
 
-        CustomChainedPuzzle = 15, //ChainedPuzzle independant from secdoors or terminals
+        DeLinkedChainedPuzzle = 15, //ChainedPuzzle independant from secdoors or terminals
         TerminalOverride = 16, //Override terminal data (like reactor commands and color)
 
 

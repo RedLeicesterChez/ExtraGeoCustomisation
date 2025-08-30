@@ -14,34 +14,31 @@ namespace ExtraGeoCustomisation
     [BepInPlugin("ExtraGeoCustomisation.GUID", "ExtraGeoCustomisation", "1.0.0")]
     internal class EntryPoint : BasePlugin
     {
-        internal static GlobalGeoHandler globalGeoHandler;
-        internal static LevelManager levelManager;
+        internal static GeoHandler geoHandler;
         private static Harmony _Harmony;
         public override void Load()
         {
             LogEGC.Info("Loading ExtraGeoCustomisation");
             _Harmony = new Harmony("ExtraGeoCustomisation.Harmony");
-            globalGeoHandler = new GlobalGeoHandler();
+            geoHandler = new GeoHandler();
             LevelGenPatches.Setup(_Harmony);
             AssetAPI.OnAssetBundlesLoaded += RegisterTypes;
             AssetAPI.OnAssetBundlesLoaded += OnAssetsLoaded;
             JsonHandler.SetupJson();
-            //CustomGeoHandler geoData = new CustomGeoHandler();
-            //geoData.Setup();
+            geoHandler.Setup();
 
             CConsoleUtils.RegisterCommands();
         }
 
         private static void RegisterTypes()
         {
-            //ClassInjector.RegisterTypeInIl2Cpp<CustomGeoCustomisation>();
             ClassInjector.RegisterTypeInIl2Cpp<CustomisationHandlerBase>();
             ClassInjector.RegisterTypeInIl2Cpp<TextObjectHandler>();
         }
 
         private static void OnAssetsLoaded()
         {
-            globalGeoHandler.LoadGlobalGeos();
+            
         }
     }
 

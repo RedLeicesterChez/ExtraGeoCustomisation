@@ -19,9 +19,10 @@ namespace ExtraGeoCustomisation.Utils
 
             // Map the Type value to actual class type
             var type = (eCustomisationType)typeElement.GetInt32();
-
+            
             BaseCustomisation result = type switch
             {
+                eCustomisationType.WorldEventObject => JsonSerializer.Deserialize<WorldEventObject>(root.GetRawText(), options),
                 eCustomisationType.TextObject => JsonSerializer.Deserialize<TextObject>(root.GetRawText(), options),
                 eCustomisationType.DamageArea => JsonSerializer.Deserialize<DamageableArea>(root.GetRawText(), options),
                 eCustomisationType.ShuttleBox => JsonSerializer.Deserialize<ShuttleBox>(root.GetRawText(), options),
@@ -34,6 +35,10 @@ namespace ExtraGeoCustomisation.Utils
                 eCustomisationType.CustomFogArea => JsonSerializer.Deserialize<CustomFogArea>(root.GetRawText(), options),
                 eCustomisationType.CustomTriggerBox => JsonSerializer.Deserialize<CustomTriggerBox>(root.GetRawText(), options),
                 eCustomisationType.CustomGenerator => JsonSerializer.Deserialize<CustomGenerator>(root.GetRawText(), options),
+                eCustomisationType.TileEnemy => JsonSerializer.Deserialize<TileEnemy>(root.GetRawText(), options),
+
+                eCustomisationType.DeLinkedChainedPuzzle => JsonSerializer.Deserialize<DeLinkedChainedPuzzle>(root.GetRawText(), options),
+                eCustomisationType.TerminalOverride => JsonSerializer.Deserialize<TerminalOverride>(root.GetRawText(), options),
                 _ => throw new JsonException($"Unknown customisation type: {type}")
             };
 

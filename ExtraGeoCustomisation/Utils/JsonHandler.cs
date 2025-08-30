@@ -1,9 +1,10 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.IO;
+﻿using ExtraGeoCustomisation.Data;
 using MTFO.API;
-using ExtraGeoCustomisation.Data;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ExtraGeoCustomisation.Utils
 {
@@ -32,114 +33,51 @@ namespace ExtraGeoCustomisation.Utils
             LoadJson();
         }
 
-        //public Dictionary<int, BaseCustomisation[]> Customisations; For individual customisations (put elsewhere)
-        public static List<GlobalGeoData> GlobalGeoDatas = new();
-        public static List<LevelSpecificGeoData> LevelSpecificGeoDatas = new();
+        public static Dictionary<int, GeoCustomisationData> GeoCustomisationData = new();
 
-        private static void LoadJson(bool isHotReload = false, bool generateTemplate = false)
+        internal static void LoadJson()
         {
-            string globalDataPath = Path.Combine(EGC_CustomPath + "/GlobalData");
-            string levelSpecificDataPath = Path.Combine(EGC_CustomPath + "/LevelSpecificData");
-
-            string[] globalGeoDataPaths = [];
-            string[] perLevelDataPaths = [];
+            string[] paths = [];
 
             LogEGC.Info("Loading Json Data");
 
-            
-            if (!Directory.Exists(globalDataPath))
+            if (!Directory.Exists(EGC_CustomPath))
             {
-                Directory.CreateDirectory(globalDataPath);
+                Directory.CreateDirectory(EGC_CustomPath);
             }
-            globalGeoDataPaths = Directory.GetFiles(globalDataPath);
-            GlobalGeoDatas.Clear();
-            if (globalGeoDataPaths.Length > 0)
+            paths = Directory.GetFiles(EGC_CustomPath);
+            GeoCustomisationData.Clear();
+            if (paths.Length > 0)
             {
-                foreach (string path in globalGeoDataPaths)
+                foreach (string path in paths)
                 {
-                    LogEGC.Info("Loading file with path: " + path);
                     if (path.Contains("Template"))
                     {
-                        LogEGC.Debug("Tried loading template file aborting");
+                        LogEGC.Info("Tried loading template file aborting");
                         continue;
                     }
-                    GlobalGeoData data = Deserialize(path, new GlobalGeoData());
-                    GlobalGeoDatas.Add(data);
+                    LogEGC.Info("Loading file with path: " + path);
+                    GeoCustomisationData data = Deserialize(path, new GeoCustomisationData());
+                    bool t = GeoCustomisationData.TryAdd(data.LevelLayoutID, data);
+                    if (t)
+                    {
+                        LogEGC.ErrorImportant("Tried adding a file to the dictionary that already exists path: " + path);
+                    }
                 }
             }
             else
             {
-                LogEGC.Info("Generating template GGD file as no files exist");
-                GlobalGeoData data = DeserializeJsonAndCreateIfNotReal(globalDataPath + "/Template.json", new GlobalGeoData());
-                GlobalGeoDatas.Add(data);
+                LogEGC.Info("Generating template LevelSpecificGeoData file as no files exist");
+                GeoCustomisationData data = DeserializeJsonAndCreateIfNotReal(EGC_CustomPath + "/Template.json", new GeoCustomisationData());
+                GeoCustomisationData.Add(data.LevelLayoutID, data);
             }
 
-            if (!Directory.Exists(levelSpecificDataPath))
-            {
-                Directory.CreateDirectory(levelSpecificDataPath);
-            }
-            perLevelDataPaths = Directory.GetFiles(levelSpecificDataPath);
-            LevelSpecificGeoDatas.Clear();
-            if (perLevelDataPaths.Length > 0)
-            {
-                foreach (string path in perLevelDataPaths)
-                {
-                    LogEGC.Info("Loading file with path: " + path);
-                    if (path.Contains("Template"))
-                    {
-                        LogEGC.Debug("Tried loading template file aborting");
-                        continue;
-                    }
-                    LevelSpecificGeoData data = Deserialize(path, new LevelSpecificGeoData());
-                    LevelSpecificGeoDatas.Add(data);
-                }
-            }
-            else
-            {
-                LogEGC.Info("Generating template LSGD file as no files exist");
-                LevelSpecificGeoData data = DeserializeJsonAndCreateIfNotReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
-                LevelSpecificGeoDatas.Add(data);
-            }
-
-            if (generateTemplate)
+            if (GlobalConfig.GenerateTemplateFile)
             {
                 LogEGC.Info("Generating new template files");
-                DeserializeAndOverwriteIfReal(globalDataPath + "/Template.json", new GlobalGeoData());
-                DeserializeAndOverwriteIfReal(levelSpecificDataPath + "/Template.json", new LevelSpecificGeoData());
+                GlobalConfig.GenerateTemplateFile = false;
+                DeserializeAndOverwriteIfReal(EGC_CustomPath + "/Template.json", new GeoCustomisationData());
             }
-
-
-            /*
-            if (!Directory.Exists(globalDataPath))
-            {
-                Directory.CreateDirectory(globalDataPath);
-            }
-            globalGeoDataPaths = Directory.GetFiles(globalDataPath);
-
-            if (!Directory.Exists(levelSpecificDataPath))
-            {
-                Directory.CreateDirectory(levelSpecificDataPath);
-            }
-            perLevelDataPaths = Directory.GetFiles(levelSpecificDataPath);
-
-            if (generateTemplate)
-            {
-                LogEGC.Debug("Adding template files");
-                AddTemplateFiles(globalDataPath, levelSpecificDataPath);
-            }
-
-            LogEGC.Info("Json data Loaded");
-
-            if (isHotReload)
-            {
-
-            }
-
-            void AddTemplateFiles(string globalDataPath, string LevelSpecificDataPath)
-            {
-
-            }
-            */
         }
 
         private static T DeserializeJsonAndCreateIfNotReal<T>(string jsonPath, T data)
@@ -176,10 +114,11 @@ namespace ExtraGeoCustomisation.Utils
             return JsonSerializer.Deserialize<T>(codedJson, _setting);
         }
 
-        public static void OnHotReload()
+        private static void OnHotReload()
         {
             LogEGC.Info("Reloading json");
-            //LoadJson(true);
+            LoadJson();
+            EntryPoint.geoHandler.OnHotReload();
         }
 
         private static readonly JsonSerializerOptions _setting = new()
@@ -191,6 +130,7 @@ namespace ExtraGeoCustomisation.Utils
             IgnoreReadOnlyProperties = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             Converters = { new BaseCustomisationConverter() },
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
         };
     }
 }
